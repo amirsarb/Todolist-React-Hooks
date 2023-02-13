@@ -1,3 +1,171 @@
+<div>
+  <h1 align="center">A Todo List App with React Hooks 🧑‍💻</h1>
+<h2>Goals</h2>
+  <ul>
+  <li>
+  Using entirely hooks and functional components.
+  </li>
+  <li>
+  To Do List application of full (C.R.U.D) to do list
+  </li>
+  <li>
+    No class based components.
+    </li>
+     <li>
+   Looks best on a small screen size (responsive).
+    </li>
+    
+   </ul>
+
+  <p>
+    Screenshot:
+  </p>
+
+  <a href="">
+    <img
+      alt="Learn NextJS"
+      src="screenshot.jpg"
+    />
+  </a>
+</div>
+
+<hr />
+
+## Requirements
+- NPM
+- React
+- React-dom
+- MUI
+- uuid
+
+## Main Components
+- TaskApp
+- TaskList
+- TaskForm
+- TaskEditForm
+- Task
+- /Hooks/useInput (Tools)
+- /Hooks/useToggle (Tools)
+
+## TaskApp Component
+This is the main App which renders TaskList and also contains all important functions:
+
+```javascript
+addTask()
+deleteTask()
+toggleTask()
+editTask()
+```
+
+Moreover, Navigation bar created here by using MUI:
+```javascript
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" component="div">
+            Todo List with Hooks
+          </Typography>
+        </Toolbar>
+      </AppBar>
+```
+
+And also renders TaskForm at the bottom for adding new task:
+
+```javascript
+  <Grid sx={{ mt: "1.5rem" }} container justifyContent={"center"}>
+        <Grid item xs={12} md={8} lg={4}>
+          <TaskList
+            tasks={tasks}
+            deleteTask={deleteTask}
+            toggleTask={toggleTask}
+            editTask={editTask}
+          />
+          <TaskForm addTask={addTask} />
+        </Grid>
+  </Grid>
+```
+
+
+
+## TaskList Component
+Get tasks from props and render each task:
+```javascript
+   <List>
+        {props.tasks.map((t) => (
+          <>
+            <Task
+              item={t}
+              key={t.id}
+              deleteTask={props.deleteTask}
+              toggleTask={props.toggleTask}
+              editTask={props.editTask}
+            />
+            <Divider />
+          </>
+        ))}
+    </List>
+```
+
+## Task Component
+Renders each task and handle edit/delete/done.
+When we click on edit button, TaskEditForm will show up.
+
+```javascript
+      <Checkbox tabIndex={-1} checked={item.finished} onClick={handleToggle} />
+      <ListItemText
+        style={{
+          cursor: "context-menu",
+          textDecoration: item.finished ? "line-through" : "none",
+        }}
+      >
+        {" "}
+        {!showEdit ? (
+          item.taskName
+        ) : (
+          <TaskEditForm
+            editTask={editTask}
+            handleEdit={handleEdit}
+            item={item}
+            showEdit={showEdit}
+          />
+        )}
+      </ListItemText>
+```
+
+## Additional Component - useInput
+Instead of writing handleChange for each InputBox, we can use it easily.
+This component helps us to have our input and handle function:
+
+```javascript
+ const [taskName, handleTaskNameChange] = useInput(props.item.taskName);
+```
+## Additional Component - useToggle
+
+No need to write a toggle function for each item, we can easily use this:
+
+```javascript
+  const [showEdit, setToggle] = useToggle(false);
+```
+
+
+
+
+
+
+
+### DISCLAIMER: THIS IS NOT A REACT.JS BEGGINNERS GUIDE/TUTORIAL
+
+
+In the project directory, you can run bellow command to install all dependencies:
+
+### `npm i`
+
+
+To run this app:
+
+### `npm run dev`
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
